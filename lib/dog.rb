@@ -2,7 +2,6 @@ class Dog
     attr_accessor :id, :name, :breed
   
     def initialize(attributes)
-      #id: nil, name:, breed:
       attributes.each {|key, value| self.send(("#{key}="), value)}
       self.id ||= nil
     end
@@ -47,7 +46,9 @@ class Dog
   
     def self.find_by_id(id)
       sql = <<-SQL
-        SELECT * FROM dogs WHERE id = ?
+        SELECT * 
+        FROM dogs 
+        WHERE id = ?
       SQL
   
       DB[:conn].execute(sql, id).map do |row|
@@ -66,8 +67,10 @@ class Dog
   
     def self.find_or_create_by(name:, breed:)
       sql = <<-SQL
-        SELECT * FROM dogs
-        WHERE name = ? AND breed = ?
+        SELECT * 
+        FROM dogs
+        WHERE name = ? 
+        AND breed = ?
         SQL
   
   
@@ -83,7 +86,9 @@ class Dog
   
     def self.find_by_name(name)
       sql = <<-SQL
-        SELECT * FROM dogs WHERE name = ?
+        SELECT * 
+        FROM dogs 
+        WHERE name = ?
       SQL
   
       DB[:conn].execute(sql, name).map do |row|
@@ -93,7 +98,9 @@ class Dog
   
     def update
       sql = <<-SQL
-        UPDATE dogs SET name = ?, breed = ? WHERE id = ?
+        UPDATE dogs 
+        SET name = ?, breed = ? 
+        WHERE id = ?
         SQL
   
         DB[:conn].execute(sql, self.name, self.breed, self.id)
